@@ -13,11 +13,61 @@
         }
       ],
       "paths": {
-        
+        "/user": {
+          "post": {
+            "tags": ["User"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "requestBody": {
+              "description": "Important elements in this body(Asosiy elementlar)",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "responses": {
+              
+            }
+          }
+        }
       },
       "components": {
         "schemas": {
-          
+          "User":{
+            "type": "object",
+            "required": ["name","email","password", "status", "tel_number", "device_number"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              },
+              "tel_number": {
+                "type": "string"
+              },
+              "device_number": {
+                "type": "string"
+              }
+            }
+          },
+          "Device": {
+            "type": "object",
+            "required": ["device_number"],
+            "properties": {
+              "device_number": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },

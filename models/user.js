@@ -32,15 +32,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // device_number: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "devices",
-    //     required: true,
-    // }
+    device_number: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "devices",
+        required: true,
+    }
 });
 
 userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id, status: this.status }, config.get('jwtPrivateKey'),
+    const token = jwt.sign({ _id: this._id, status: this.status, device_number: this.device_number}, config.get('jwtPrivateKey'),
         // {expiresIn: '300s'}
     );
     return token;
@@ -55,7 +55,7 @@ function validateUser(user) {
         password: Joi.string().min(5).max(255).required(),
         status: Joi.number(),
         tel_number: Joi.string().min(9).max(13).required(),
-        // device_number: Joi.string().min(3).max(50).required()
+        device_number: Joi.string().min(3).max(50).required()
     });
 
     return schema.validate(user);

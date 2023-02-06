@@ -2,9 +2,13 @@ const Joi = require('joi')
 const mongoose = require('mongoose')
 
 const DeviceSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
     device_number: {
         type: String,
-        required: true,
+        required: true
     }
 });
 
@@ -12,6 +16,7 @@ const Device = mongoose.model('devices', DeviceSchema);
 
 function validateDevice(user) {
     const schema = Joi.object({
+        name: Joi.string().required(),
         device_number: Joi.string().required()
     });
 
