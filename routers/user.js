@@ -1,8 +1,17 @@
-const express = require('express');
-const router = express.Router();
-const { User, validateUser } = require('../models/user');
-const _ = require('lodash');
-const bcrypt = require('bcryptjs');
+const express = require('express')
+const router = express.Router()
+const { User, validateUser } = require('../models/user')
+const _ = require('lodash')
+const bcrypt = require('bcryptjs')
+const Joi = require('joi')
+
+const loginValidator = user => {
+    const schema = Joi.object({
+        email: Joi.string().min(5).max(255).required().email(),
+        password: Joi.string().min(5).max(255).required()
+    });
+    return schema.validate(user);
+}
 
 router.post('/', async (req, res) => {
     try{
@@ -26,6 +35,25 @@ router.post('/', async (req, res) => {
     }catch{
         return res.status(500).send("xatolik yuzaga keldi")
     }
+});
+
+router.post('/login', async (req, res) => {
+
+    const { error } = loginValidator(_.pick(req.body, ['email', 'password']));
+    if(error)
+        return res.status(400).send(error.details[0].message);
+    
+    let user = await User.findOne({ email: req.body.email });
+    if (!user)
+        return res.status(400).send('Email yoki parol noto\'g\'ri');
+    
+    const isValidPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!isValidPassword)
+        return res.status(400).send('Email yoki parol noto\'g\'ri');
+
+    const token = user.generateAuthToken();
+    return res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email', 'name', 'device_number', 'status', 'tel_number']));
+
 });
 
 module.exports = router;

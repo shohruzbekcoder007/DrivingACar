@@ -31,6 +31,36 @@
               
             }
           }
+        },
+        "/user/login": {
+          "post": {
+            "tags": ["User"],
+            "description": "Login User",
+            "requestBody": {
+              "description": "Login with email",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "required": ["email","password"],
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "example": "string007@gamil.com"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "string1234"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              
+            }
+          }
         }
       },
       "components": {
@@ -61,8 +91,11 @@
           },
           "Device": {
             "type": "object",
-            "required": ["device_number"],
+            "required": ["device_number", "name"],
             "properties": {
+              "name": {
+                "type": "string"
+              },
               "device_number": {
                 "type": "string"
               }
