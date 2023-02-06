@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { Device, validateDevice } = require('../models/device')
+const { User } = require('../models/user')
 const _ = require('lodash')
 const auth = require('../middleware/auth')
 const admin = require('../middleware/admin')
@@ -54,6 +55,17 @@ router.get('/devices', [auth, admin, newtoken], async (req, res) => {
         return res.send([])
     }
 
+});
+
+router.post('/login', async (req, res) => {
+
+    let user = await User.findOne({ device_number: req.query.device_number});
+    if (!user)
+        return res.status(400).send({connected: false});
+
+    const token = user.generateAuthToken();
+    return res.header('x-auth-token', token).send({connected: true});
+    
 });
 
 module.exports = router;

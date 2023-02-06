@@ -8,7 +8,8 @@ const DeviceSchema = new mongoose.Schema({
     },
     device_number: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 

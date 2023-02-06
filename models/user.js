@@ -26,16 +26,16 @@ const userSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: [1,2,3],
-        required: false,
+        required: true,
+        default: 3
     },
     tel_number: {
         type: String,
         required: true,
     },
     device_number: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "devices",
-        required: true,
+        type: String,
+        required: false,
     }
 });
 

@@ -8,5 +8,6 @@ module.exports = (server) => {
             credentials: true
         }
     })
-    // require('../socket/socket_action')(io)
+    require('../socket/socket_action')(io)
+    // return io;
 }
