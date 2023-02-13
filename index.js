@@ -13,6 +13,7 @@ let server = app.listen(8080, err => {
         console.log(`8080 portni tinglash boshlandi!!!`);
 })
 
-require('./startup/socket')(server)
+const io = require('./startup/socket')(server)
+app.io = io
 
 module.exports.server = server

@@ -24,13 +24,15 @@ const ConditionSchema = new mongoose.Schema({
 
 const Condition = mongoose.model('conditions', ConditionSchema);
 
-function validateCondition(user) {
+function validateCondition(condition) {
     const schema = Joi.object({
-        name: Joi.string().required(),
-        device_number: Joi.string().required()
+        user: Joi.string().required(),
+        device_number: Joi.string().required(),
+        status: Joi.number(),
+        created_at: Joi.date()
     });
 
-    return schema.validate(user);
+    return schema.validate(condition);
 }
 
 exports.Condition = Condition;

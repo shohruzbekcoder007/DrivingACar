@@ -9,5 +9,5 @@ module.exports = (server) => {
         }
     })
     require('../socket/socket_action')(io)
-    // return io;
+    return io;
 }
