@@ -10,6 +10,10 @@ const DeviceSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    created_at: {
+        type: Date,
+        default: new Date()
     }
 });
 
