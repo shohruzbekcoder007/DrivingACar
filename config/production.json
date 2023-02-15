@@ -1,5 +1,5 @@
 {
     "jwtPrivateKey": "qiy1npar0l",
-    "db": "mongodb+srv://forhumoyun_aka:forhumoyun_aka@cluster0.ycg5joo.mongodb.net/shoping?retryWrites=true&w=majority",
+    "db": "mongodb://127.0.0.1:27017/driving",
     "front":"http://localhost:3000"
 }

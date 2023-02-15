@@ -61,6 +61,103 @@
               
             }
           }
+        },
+        "/device/login": {
+          "post": {
+            "tags": ["Device"],
+            "description": "Login Device",
+            "requestBody": {
+              "description": "Login with email",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "required": ["device_number"],
+                    "properties": {
+                      "device_number": {
+                        "type": "string",
+                        "example": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              
+            }
+          }
+        },
+        "/device": {
+          "post": {
+            "tags": ["Device"],
+            "description": "Create device(Device yaratish)",
+            "requestBody": {
+              "description": "Important elements in this body(Asosiy elementlar)",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Device"
+                  }
+                }
+              }
+            },
+            "responses": {
+              
+            }
+          }
+        },
+        "/device/devices": {
+          "get": {
+            "tags": ["Device"],
+            "description": "Device List",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              },
+              {
+                "name": "offset",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
+        "/device/remove": {
+          "delete": {
+            "tags": ["Device"],
+            "description": "User Remove",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              },
+              {
+                "name": "_id",
+                "in": "query",
+                "description": "device id",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
         }
       },
       "components": {

@@ -58,7 +58,7 @@ router.get('/devices', [auth, admin, newtoken], async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-
+    
     let user = await User.findOne({ device_number: req.body.device_number});
     if (!user)
         return res.status(400).send({connected: false});

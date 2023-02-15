@@ -1,5 +1,5 @@
 {
     "jwtPrivateKey": "qiy1npar0l",
-    "db": "mongodb://127.0.0.1:27017/driving",
+    "db": "mongodb://127.0.0.1:27017/driving_test_db",
     "front":"http://localhost:3000"
 }
