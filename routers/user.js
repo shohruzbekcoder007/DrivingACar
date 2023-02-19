@@ -4,6 +4,9 @@ const { User, validateUser } = require('../models/user')
 const _ = require('lodash')
 const bcrypt = require('bcryptjs')
 const Joi = require('joi')
+const auth = require('../middleware/auth')
+const admin = require('../middleware/admin')
+const newtoken = require('../middleware/newtoken')
 
 const loginValidator = user => {
     const schema = Joi.object({
@@ -54,6 +57,13 @@ router.post('/login', async (req, res) => {
     const token = user.generateAuthToken();
     return res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email', 'name', 'device_number', 'status', 'tel_number']));
 
+});
+
+router.get('/users', [auth, admin, newtoken], async (req, res) => {
+
+    const users = await User.find({status: req.query.status}).select('name email tel_number device_number');
+
+    return res.send(users)
 });
 
 module.exports = router;
