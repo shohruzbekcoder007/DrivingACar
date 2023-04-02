@@ -66,6 +66,29 @@
             }
           }
         },
+        "/user/users": {
+          "get": {
+            "tags": ["User"],
+            "description": "Device List",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              },
+              {
+                "name": "status",
+                "in": "query",
+                "description": "status",
+                "type": "number"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
         "/device/login": {
           "post": {
             "tags": ["Device"],
@@ -129,7 +152,7 @@
                 "type": "number"
               },
               {
-                "name": "offset",
+                "name": "page",
                 "in": "query",
                 "description": "question's category",
                 "type": "number"

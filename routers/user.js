@@ -61,9 +61,47 @@ router.post('/login', async (req, res) => {
 
 router.get('/users', [auth, admin, newtoken], async (req, res) => {
 
-    const users = await User.find({status: req.query.status}).select('name email tel_number device_number');
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
 
-    return res.send(users)
+    const name = req.query.name || ''
+    const email = req.query.email || ''
+    const tel_number = req.query.tel_number || ''
+    const device_number = req.query.device_number || ''
+
+    const regex_name = new RegExp(name, 'i')
+    const regex_email = new RegExp(email, 'i')
+    const regex_tel_number = new RegExp(tel_number, 'i')
+    const regex_device_number = new RegExp(device_number, 'i')
+
+    const users = await User.find({ 
+        status: req.query.status, 
+        name: regex_name,  
+        email: regex_email,
+        tel_number: regex_tel_number,
+        device_number: regex_device_number
+    })
+    .sort({_id: -1})
+    .limit(limit)
+    .skip((page - 1)*limit)
+
+    const count = await User.countDocuments({
+        status: req.query.status, 
+        name: regex_name,  
+        email: regex_email,
+        tel_number: regex_tel_number,
+        device_number: regex_device_number
+    })
+    const totalPages = Math.ceil(count / limit)
+    let result = {}
+    result.users = users
+    result.page = page
+    result.totalPages = totalPages
+
+    return res.send(result)
+
+    // return res.send(users)
+    
 });
 
 module.exports = router;

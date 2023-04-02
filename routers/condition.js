@@ -46,8 +46,6 @@ router.post('/update-condition', [auth, tow_truck, newtoken], async (req, res) =
     const { _id, status } = req.body
 
     const condition = await Condition.findByIdAndUpdate(_id, { status: status }, { new: true })
-
-    req.app.io.emit('tx', {key:"value"})
     
     return res.send(condition)
     
