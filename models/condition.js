@@ -7,6 +7,11 @@ const ConditionSchema = new mongoose.Schema({
         ref: "users",
         required: true
     },
+    truck: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        default: null
+    },
     device_number: {
         type: String,
         required: true
@@ -19,6 +24,14 @@ const ConditionSchema = new mongoose.Schema({
     created_at: {
         type: Date,
         default: new Date()
+    },
+    updated_at: {
+        type: Date,
+        default: new Date()
+    },
+    finished_at: {
+        type: Date,
+        default: new Date()
     }
 });
 
@@ -28,8 +41,11 @@ function validateCondition(condition) {
     const schema = Joi.object({
         user: Joi.string().required(),
         device_number: Joi.string().required(),
+        truck: Joi.string(),
         status: Joi.number(),
-        created_at: Joi.date()
+        created_at: Joi.date(),
+        updated_at: Joi.date(),
+        finished_at: Joi.date()
     });
 
     return schema.validate(condition);

@@ -3,7 +3,7 @@
       "openapi": "3.0.0",
       "info": {
         "title": "Sample API",
-        "description": "",
+        "description": "https://driver.onrender.com/v1 and http://localhost:8080/v1",
         "version": "0.1.0"
       },
       "servers": [
@@ -163,6 +163,47 @@
             }
           }
         },
+        "/device/search": {
+          "get": {
+            "tags": ["Device"],
+            "description": "Device List",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              },
+              {
+                "name": "page",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              },
+              {
+                "name": "name",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              },
+              {
+                "device_number": "name",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
         "/device/remove": {
           "delete": {
             "tags": ["Device"],
@@ -178,6 +219,50 @@
                 "name": "_id",
                 "in": "query",
                 "description": "device id",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
+        "/condition": {
+          "post": {
+            "tags": ["Condition"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              }
+            ],
+            "requestBody": {
+              "description": "Important elements in this body(Asosiy elementlar)",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Condition"
+                  }
+                }
+              }
+            },
+            "responses": {
+              
+            }
+          }
+        },
+        "/condition/create-condition": {
+          "post": {
+            "tags": ["Condition"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
                 "type": "string"
               }
             ],
@@ -222,6 +307,39 @@
               },
               "device_number": {
                 "type": "string"
+              }
+            }
+          },
+          "Condition": {
+            "type": "object",
+            "required": ["user", "device_number"],
+            "properties": {
+              "user": {
+                "type": "string"
+              },
+              "truck": {
+                "type": "string"
+              },
+              "device_number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2023-01-30T08:30:00Z"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2023-01-30T08:30:00Z"
+              },
+              "finished_at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2023-01-30T08:30:00Z"
               }
             }
           }

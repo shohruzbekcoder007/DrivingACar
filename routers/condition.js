@@ -14,7 +14,7 @@ router.post('/', [auth, ordinary_user, newtoken], async (req, res) => {
     if(error)
         return res.status(400).send(error.details[0].message);
 
-    const condition = new Condition(_.pick(req.body, ['user','device_number', 'status', 'created_at']));
+    const condition = new Condition(_.pick(req.body, ['user','device_number', 'status', 'created_at', 'updated_at', 'finished_at']));
 
     await condition.save();
     
@@ -45,10 +45,20 @@ router.post('/update-condition', [auth, tow_truck, newtoken], async (req, res) =
 
     const { _id, status } = req.body
 
-    const condition = await Condition.findByIdAndUpdate(_id, { status: status }, { new: true })
+    const truck_id = req.user._id
+
+    let condition = null;
+
+    if(status == 2){
+        condition = await Condition.findByIdAndUpdate(_id, { status: status, updated_at: new Date(), truck:  truck_id}, { new: true })
+    }
+
+    if (status == 3) {
+        condition = await Condition.findByIdAndUpdate(_id, { status: status, finished_at: new Date() }, { new: true })
+    }
     
     return res.send(condition)
-    
+
 })
 
 module.exports = router;
