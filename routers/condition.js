@@ -4,6 +4,7 @@ const { Condition, validateCondition } = require('../models/condition')
 const _ = require('lodash')
 const auth = require('../middleware/auth')
 const ordinary_user = require('../middleware/ordinary_user')
+const admin = require('../middleware/admin')
 const tow_truck = require('../middleware/tow_truck')
 const newtoken = require('../middleware/newtoken')
 
@@ -59,6 +60,49 @@ router.post('/update-condition', [auth, tow_truck, newtoken], async (req, res) =
     
     return res.send(condition)
 
+})
+
+router.get('/search-condition',[auth, admin, newtoken], async (req, res) => {
+
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const status = parseInt(req.query.status) || 1;
+
+    try {
+
+        const conditions = await Condition.find({ status: status}).sort({_id: -1}).populate('user').populate('truck').limit(limit).skip((page - 1)*limit)
+        const count = await Condition.countDocuments({ status: status})
+        const totalPages = Math.ceil(count / limit)
+
+        let result = {}
+        result.conditions = conditions
+        result.page = page
+        result.totalPages = totalPages
+
+        return res.send(result)
+
+    } catch (error) {
+        return res.send([])
+    }
+})
+
+router.get('/done-conditions',[auth, admin, newtoken], async (req, res) => {
+
+    try {
+        
+        const count = await Condition.countDocuments({ status: 3})
+
+        let result = {
+            count
+        }
+
+        return res.send(result)
+
+    } catch (error) {
+        return res.send({
+            count: 0
+        })
+    }
 })
 
 module.exports = router;

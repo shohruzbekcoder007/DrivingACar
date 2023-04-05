@@ -96,7 +96,7 @@ router.get('/search', [auth, admin, newtoken], async (req, res) => {
 
         return res.send(result)
 
-    } catch {
+    } catch (error){
         return res.send([])
     }
 

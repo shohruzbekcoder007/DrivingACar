@@ -104,4 +104,20 @@ router.get('/users', [auth, admin, newtoken], async (req, res) => {
     
 });
 
+router.get('/users-count', [auth, admin, newtoken], async (req, res) => {
+    
+    const count1 = await User.countDocuments({ status: 1 })
+    const count2 = await User.countDocuments({ status: 2 })
+    const count3 = await User.countDocuments({ status: 3 })
+
+    let result = {
+        count1,
+        count2,
+        count3
+    }
+
+    return res.send(result)
+
+});
+
 module.exports = router;
