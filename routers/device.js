@@ -102,4 +102,17 @@ router.get('/search', [auth, admin, newtoken], async (req, res) => {
 
 });
 
+router.get('/devices-count', [auth, admin, newtoken], async (req, res) => {
+  
+    try {
+        const count = await Device.countDocuments()
+        let result = {}
+        result.count = count
+        return res.send(result)
+    } catch (error) {
+        return res.send([])
+    }
+
+});
+
 module.exports = router;

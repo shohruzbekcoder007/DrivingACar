@@ -7,6 +7,8 @@ const ordinary_user = require('../middleware/ordinary_user')
 const admin = require('../middleware/admin')
 const tow_truck = require('../middleware/tow_truck')
 const newtoken = require('../middleware/newtoken')
+const { User } = require('../models/user')
+const { Device } = require('../models/device')
 
 router.post('/', [auth, ordinary_user, newtoken], async (req, res) => {
 
@@ -103,6 +105,35 @@ router.get('/done-conditions',[auth, admin, newtoken], async (req, res) => {
             count: 0
         })
     }
+})
+
+router.get('/result-time',[auth, admin, newtoken], async (req, res)=> {
+
+    const {begin, end} = req.query
+
+    try {
+
+        const condition1 = await Condition.find({status: "1", created_at: { $gte: begin, $lte: end } }).countDocuments();
+        const condition2 = await Condition.find({status: "2", updated_at: { $gte: begin, $lte: end } }).countDocuments();
+        const condition3 = await Condition.find({status: "3", finished_at: { $gte: begin, $lte: end } }).countDocuments();
+
+        const user =  await User.find({ created_at: { $gte: begin, $lte: end } }).countDocuments();
+        const device =  await Device.find({ created_at: { $gte: begin, $lte: end } }).countDocuments();
+
+        return res.send({
+            condition1,
+            condition2,
+            condition3,
+            user,
+            device
+        })
+
+    } catch(err){
+
+        return res.send({ error: err })
+
+    }
+    
 })
 
 module.exports = router;

@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     device_number: {
         type: String,
         required: false,
+    },
+    created_at: {
+        type: Date,
+        default: new Date()
     }
 });
 
