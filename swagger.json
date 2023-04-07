@@ -204,6 +204,23 @@
             }
           }
         },
+        "/device/devices-count": {
+          "get": {
+            "tags": ["Device"],
+            "description": "Device List",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
         "/device/remove": {
           "delete": {
             "tags": ["Device"],
@@ -266,6 +283,136 @@
                 "type": "string"
               }
             ],
+            "responses": {
+              
+            }
+          }
+        },
+        "/condition/update-condition": {
+          "post": {
+            "tags": ["Condition"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              }
+            ],
+            "requestBody": {
+              "description": "Login with email",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "required": ["_id","status"],
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "string007@gamil.com"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "string1234"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              
+            }
+          }
+        },
+        "/condition/search-condition": {
+          "get": {
+            "tags": ["Condition"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              },
+              {
+                "name": "page",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              },
+              {
+                "name": "status",
+                "in": "query",
+                "description": "question's category",
+                "type": "number"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
+        "/condition/done-conditions": {
+          "get": {
+            "tags": ["Condition"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              
+            }
+          }
+        },
+        "/condition/result-time": {
+          "get": {
+            "tags": ["Condition"],
+            "description": "This api create new user. Mobile phone send to the server(Yangi foydalanuvchini yaratadi. Mobile phone serverga yuboradi)",
+            "parameters": [
+              {
+                "name": "x-auth-token",
+                "in": "header",
+                "description": "an authorization header",
+                "type": "string"
+              }
+            ],
+            "requestBody": {
+              "description": "Login with email",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "required": ["begin","end"],
+                    "properties": {
+                      "begin": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-30T08:30:00Z"
+                      },
+                      "end": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-30T08:30:00Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "responses": {
               
             }

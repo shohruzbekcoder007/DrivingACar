@@ -7,6 +7,9 @@ const Joi = require('joi')
 const auth = require('../middleware/auth')
 const admin = require('../middleware/admin')
 const newtoken = require('../middleware/newtoken')
+const tow_truck = require('../middleware/tow_truck')
+const ordinary_user = require('../middleware/ordinary_user')
+const { Condition, validateCondition } = require('../models/condition')
 
 const loginValidator = user => {
     const schema = Joi.object({
@@ -117,6 +120,58 @@ router.get('/users-count', [auth, admin, newtoken], async (req, res) => {
     }
 
     return res.send(result)
+
+});
+
+router.get('/tow-truck-report', [auth, tow_truck, newtoken], async (req, res) => {
+    
+    const { _id } = req.user;
+
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const status = req.query.status || ''
+
+    try {
+
+        const conditions = []
+
+        if(status){
+            conditions = await Condition.find({truck: _id, status: status}).limit(limit).skip((page - 1)*limit).populate('user')
+        }else{
+            conditions = await Condition.find({truck: _id}).limit(limit).skip((page - 1)*limit).populate('user')
+        }
+
+        return res.send(conditions)
+
+    } catch (error) {
+        return res.send([])
+    }
+
+});
+
+router.get('/user-report', [auth, ordinary_user, newtoken], async (req, res) => {
+    
+    const { _id } = req.user;
+
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const status = req.query.status || ''
+
+    try {
+
+        const conditions = []
+
+        if(status){
+            conditions = await Condition.find({user: _id, status: status}).limit(limit).skip((page - 1)*limit).populate('user')
+        }else{
+            conditions = await Condition.find({user: _id}).limit(limit).skip((page - 1)*limit).populate('user')
+        }
+
+        return res.send(conditions)
+
+    } catch (error) {
+        return res.send([])
+    }
 
 });
 
