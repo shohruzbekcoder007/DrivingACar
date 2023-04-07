@@ -27,11 +27,11 @@ const ConditionSchema = new mongoose.Schema({
     },
     updated_at: {
         type: Date,
-        default: new Date()
+        default: null
     },
     finished_at: {
         type: Date,
-        default: new Date()
+        default: null
     }
 });
 

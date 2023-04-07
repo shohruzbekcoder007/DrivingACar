@@ -113,18 +113,20 @@ router.get('/result-time',[auth, admin, newtoken], async (req, res)=> {
 
     try {
 
-        const condition1 = await Condition.find({status: "1", created_at: { $gte: begin, $lte: end } }).countDocuments();
-        const condition2 = await Condition.find({status: "2", updated_at: { $gte: begin, $lte: end } }).countDocuments();
-        const condition3 = await Condition.find({status: "3", finished_at: { $gte: begin, $lte: end } }).countDocuments();
+        const condition1 = await Condition.find({created_at: { $gte: begin, $lte: end } }).countDocuments();
+        const condition2 = await Condition.find({updated_at: { $gte: begin, $lte: end } }).countDocuments();
+        const condition3 = await Condition.find({finished_at: { $gte: begin, $lte: end } }).countDocuments();
 
-        const user =  await User.find({ created_at: { $gte: begin, $lte: end } }).countDocuments();
+        const user1 =  await User.find({status: 3, created_at: { $gte: begin, $lte: end } }).countDocuments();
+        const user2 =  await User.find({status: 2, created_at: { $gte: begin, $lte: end } }).countDocuments();
         const device =  await Device.find({ created_at: { $gte: begin, $lte: end } }).countDocuments();
 
         return res.send({
             condition1,
             condition2,
             condition3,
-            user,
+            user1,
+            user2,
             device
         })
 
