@@ -64,7 +64,7 @@ router.post('/update-condition', [auth, tow_truck, newtoken], async (req, res) =
 
 })
 
-router.get('/search-condition',[auth, admin, newtoken], async (req, res) => {
+router.get('/search-condition',[auth, newtoken], async (req, res) => {
 
     const limit = parseInt(req.query.limit) || 10;
     const page = parseInt(req.query.page) || 1;
