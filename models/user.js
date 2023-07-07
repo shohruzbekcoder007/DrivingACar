@@ -40,6 +40,12 @@ const userSchema = new mongoose.Schema({
     created_at: {
         type: Date,
         default: new Date()
+    },
+    working: {
+        type: String,
+        enum: [1,2],
+        required: true,
+        default: 1
     }
 });
 

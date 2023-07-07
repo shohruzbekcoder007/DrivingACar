@@ -175,4 +175,14 @@ router.get('/user-report', [auth, ordinary_user, newtoken], async (req, res) => 
 
 });
 
+router.post('/working', [auth, newtoken], async (req, res) => {
+
+    const { _id } = req.user;
+
+    let doc = await User.findOneAndUpdate({_id: _id}, {working: 2}, {new: true});
+
+    return res.send(doc);
+
+});
+
 module.exports = router;
