@@ -43,7 +43,9 @@ router.delete('/remove', [auth, admin, newtoken], async (req, res) => {
     return res.send(_.pick(user, ['name','device_number']));
 });
 
-router.get('/devices', [auth, admin, newtoken], async (req, res) => {
+router.get('/devices', 
+// [auth, admin, newtoken], 
+async (req, res) => {
 
     const limit = parseInt(req.query.limit) || 10;
     // const offset = parseInt(req.query.offset) || 0;
