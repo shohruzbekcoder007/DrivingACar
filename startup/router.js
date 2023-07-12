@@ -17,7 +17,8 @@ const corsOptions = {
 module.exports = (app) => {
     app.use(express.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(cors(corsOptions));
+    // app.use(cors(corsOptions));
+    app.use(cors());
     app.use('/v1/user', use_router);
     app.use('/v1/device', device_router);
     app.use('/v1/condition', condition_router);
