@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', [newtoken], async (req, res) => {
 
     const { error } = loginValidator(_.pick(req.body, ['email', 'password']));
     if(error)
