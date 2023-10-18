@@ -47,22 +47,24 @@ router.get('/devices',
 // [auth, admin, newtoken], 
 async (req, res) => {
 
-    const limit = parseInt(req.query.limit) || 10;
-    // const offset = parseInt(req.query.offset) || 0;
-    const page = parseInt(req.query.page) || 1;
+    return res.send("salom")
+
+    // const limit = parseInt(req.query.limit) || 10;
+    // // const offset = parseInt(req.query.offset) || 0;
+    // const page = parseInt(req.query.page) || 1;
   
-    try {
-        const devices = await Device.find().sort({_id: -1}).limit(limit).skip((page - 1)*limit)
-        const count = await Device.countDocuments()
-        const totalPages = Math.ceil(count / limit)
-        let result = {}
-        result.devices = devices
-        result.page = page
-        result.totalPages = totalPages
-        return res.send(result)
-    } catch (error) {
-        return res.send([])
-    }
+    // try {
+    //     const devices = await Device.find().sort({_id: -1}).limit(limit).skip((page - 1)*limit)
+    //     const count = await Device.countDocuments()
+    //     const totalPages = Math.ceil(count / limit)
+    //     let result = {}
+    //     result.devices = devices
+    //     result.page = page
+    //     result.totalPages = totalPages
+    //     return res.send(result)
+    // } catch (error) {
+    //     return res.send([])
+    // }
 
 });
 
